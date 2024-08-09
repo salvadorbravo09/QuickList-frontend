@@ -1,1 +1,29 @@
 <h3>{{ title }}</h3>
+
+@if (users.length == 0) {
+<!-- Si la lista de usuarios es igual a 0, mostramos un mensaje -->
+<div class="alert alert-warning">Sin registros en el sistema</div>
+} @else { <!-- Caso contrario, si no es 0, mostramos la tabla -->
+<table>
+  <thead>
+    <tr>
+      <td>id</td>
+      <td>name</td>
+      <td>lastname</td>
+      <td>email</td>
+      <td>username</td>
+    </tr>
+  </thead>
+  <tbody>
+    @for (user of users; track $index) { <!-- Iteramos la tabla con un bucle for -->
+    <tr>
+      <th>{{ user.id }}</th>
+      <th>{{ user.name }}</th>
+      <th>{{ user.lastname }}</th>
+      <th>{{ user.email }}</th>
+      <th>{{ user.username }}</th>
+    </tr>
+    }
+  </tbody>
+</table>
+}
