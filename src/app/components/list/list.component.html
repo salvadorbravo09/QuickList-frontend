@@ -1,0 +1,28 @@
+@if (users.length == 0) {
+    <div>Sin registros en el sistema</div>
+    <!-- Caso contrario, si no es 0, mostramos la tabla -->
+    } @else {
+    <table class="w-full">
+      <thead class="bg-gray-50 border-b-2 border-gray-200">
+        <tr>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">ID</th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">NAME</th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">LASTNAME</th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">EMAIL</th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">USERNAME</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Iteramos la tabla con un bucle for -->
+        @for (user of users; track $index) {
+        <tr class="bg-white">
+          <td class="p-3 text-sm text-gray-700">{{ user.id }}</td>
+          <td class="p-3 text-sm text-gray-700">{{ user.name }}</td>
+          <td class="p-3 text-sm text-gray-700">{{ user.lastname }}</td>
+          <td class="p-3 text-sm text-gray-700">{{ user.email }}</td>
+          <td class="p-3 text-sm text-gray-700">{{ user.username }}</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    }
