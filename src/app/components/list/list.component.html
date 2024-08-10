@@ -5,9 +5,14 @@
   <thead class="bg-gray-50 border-b-2 border-gray-200">
     <tr>
       <th class="p-3 text-sm font-semibold tracking-wide text-left">NOMBRE</th>
-      <th class="p-3 text-sm font-semibold tracking-wide text-left">APELLIDO</th>
+      <th class="p-3 text-sm font-semibold tracking-wide text-left">
+        APELLIDO
+      </th>
       <th class="p-3 text-sm font-semibold tracking-wide text-left">EMAIL</th>
       <th class="p-3 text-sm font-semibold tracking-wide text-left">USUARIO</th>
+      <th class="p-3 text-sm font-semibold tracking-wide text-left">
+        ACCIONES
+      </th>
     </tr>
   </thead>
   <tbody>
@@ -17,6 +22,14 @@
       <td class="p-3 text-sm text-gray-700">{{ user.lastname }}</td>
       <td class="p-3 text-sm text-gray-700">{{ user.email }}</td>
       <td class="p-3 text-sm text-gray-700">{{ user.username }}</td>
+      <td>
+        <button
+          class="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded text-xs px-3 py-1.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+          (click)="onRemoveUser(user.id)"
+        >
+          Eliminar
+        </button>
+      </td>
     </tr>
     }
   </tbody>

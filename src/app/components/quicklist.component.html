@@ -8,7 +8,7 @@
 
     <div class="w-1/2 overflow-y-auto">
       <div class="rounded-lg shadow h-full">
-        <app-list [users]="users"></app-list>
+        <app-list [users]="users" (idUserEventEmitter)="removeUser($event)"></app-list>
       </div>
     </div>
   </div>
