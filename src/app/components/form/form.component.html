@@ -1,4 +1,4 @@
-<form class="w-full" (ngSubmit)="onSubmit()">
+<form class="w-full" (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
   <div class="flex flex-wrap -mx-3 mb-6">
     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
       <label
@@ -11,10 +11,18 @@
         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
         id="grid-first-name"
         type="text"
-        name="firstName"
+        name="name"
         placeholder="John"
         [(ngModel)]="user.name"
+        required
+        #name="ngModel"
       />
+      <!-- El name, hace referencia al "#" -->
+      @if (name.invalid && (name.dirty || name.touched)) {
+        @if (name.errors!['required']) {
+          <div class="text-red-500 text-xs italic">El nombre es requerido</div>
+        }
+      }
     </div>
 
     <div class="w-full md:w-1/2 px-3">
@@ -28,10 +36,18 @@
         class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
         id="grid-last-name"
         type="text"
-        name="lastName"
+        name="lastname"
         placeholder="Doe"
         [(ngModel)]="user.lastname"
+        required
+        #lastname="ngModel"
       />
+      <!-- El lastname, hace referencia al "#" -->
+      @if (lastname.invalid && (lastname.dirty || lastname.touched)) {
+        @if (lastname.errors!['required']) {
+          <div class="text-red-500 text-xs italic">El apellido es requerido</div>
+        }
+      }
     </div>
 
     <div class="w-full md:w-1/2 px-3">
@@ -48,7 +64,19 @@
         name="email"
         placeholder="john@correo.com"
         [(ngModel)]="user.email"
+        required
+        email
+        #email="ngModel"
       />
+      <!-- El lastname, hace referencia al "#" -->
+      @if (email.invalid && (email.dirty || email.touched)) {
+        @if (email.errors!['required']) {
+          <div class="text-red-500 text-xs italic">El email es requerido</div>
+        }
+        @if (email.errors!['email']) {
+          <div class="text-red-500 text-xs italic">El email no tiene formato correcto</div>
+        }
+      }
     </div>
 
     <div class="w-full md:w-1/2 px-3">
@@ -65,7 +93,19 @@
         name="username"
         placeholder="john123"
         [(ngModel)]="user.username"
+        required
+        minlength="6"
+        #username="ngModel"
       />
+      <!-- El username, hace referencia al "#" -->
+      @if (username.invalid && (username.dirty || username.touched)) {
+        @if (username.errors!['required']) {
+          <div class="text-red-500 text-xs italic">El username es requerido</div>
+        }
+        @if (username.errors!['minlength']) {
+          <div class="text-red-500 text-xs italic">Username debe tener al menos 6 caracteres</div>
+        }
+      }
     </div>
   </div>
 
@@ -84,10 +124,27 @@
         name="password"
         placeholder="******************"
         [(ngModel)]="user.password"
+        required
+        minlength="6"
+        #password="ngModel"
       />
+      <!-- El password, hace referencia al "#" -->
+      @if (password.invalid && (password.dirty || password.touched)) {
+        @if (password.errors!['required']) {
+          <div class="text-red-500 text-xs italic">El password es requerido</div>
+        }
+        @if (password.errors!['minlength']) {
+          <div class="text-red-500 text-xs italic">El password debe tener al menos 6 caracteres</div>
+        }
+      }
       <button
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+        [ngClass]="{
+          'bg-blue-500': userForm.valid,
+          'bg-blue-300': !userForm.valid
+        }"
+        class="text-white font-bold py-2 px-4 rounded-full"
         type="submit"
+        [disabled]="userForm.invalid"
       >
         Crear
       </button>
