@@ -41,7 +41,9 @@ export class QuicklistComponent implements OnInit {
   }
 
   removeUser(id: number): void {
-    this.users = this.users.filter((user) => user.id != id);
+    this.service.delete(id).subscribe(() => {
+      this.users = this.users.filter((user) => user.id != id);
+    });
   }
 
   setSelectedUser(user: User): void {
