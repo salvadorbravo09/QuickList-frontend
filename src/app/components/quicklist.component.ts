@@ -13,8 +13,11 @@ import { FormComponent } from './form/form.component';
 export class QuicklistComponent implements OnInit {
   title: string = 'Listado de Usuarios';
   users: User[] = [];
+  userSelected: User;
 
-  constructor(private service: UserService) {}
+  constructor(private service: UserService) {
+    this.userSelected = new User();
+  }
 
   ngOnInit(): void {
     this.service.findAll().subscribe((users) => {
@@ -23,10 +26,25 @@ export class QuicklistComponent implements OnInit {
   }
 
   addUser(user: User) {
-    this.users = [...this.users, { ...user, id: new Date().getTime() }];
+    if (user.id > 0) {
+      this.service.update(user).subscribe((userUpdated) => {
+        this.users = this.users.map((u) =>
+          u.id == userUpdated.id ? { ...userUpdated } : u
+        );
+      });
+    } else {
+      this.service.create(user).subscribe((userCreated) => {
+        this.users = [...this.users, { ...userCreated }];
+      });
+    }
+    this.userSelected = new User();
   }
 
   removeUser(id: number): void {
     this.users = this.users.filter((user) => user.id != id);
+  }
+
+  setSelectedUser(user: User): void {
+    this.userSelected = { ...user };
   }
 }

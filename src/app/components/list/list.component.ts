@@ -14,7 +14,14 @@ export class ListComponent {
   @Output()
   idUserEventEmitter = new EventEmitter();
 
+  @Output()
+  selectedUserEventEmitter = new EventEmitter();
+
   onRemoveUser(id: number): void {
     this.idUserEventEmitter.emit(id);
+  }
+
+  onSelectedUser(user: User): void {
+    this.selectedUserEventEmitter.emit(user);
   }
 }

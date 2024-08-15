@@ -1,7 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../../models/user';
 import { NgClass } from '@angular/common';
+import { UserService } from '../../services/user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-form',
@@ -9,14 +11,26 @@ import { NgClass } from '@angular/common';
   imports: [NgClass, FormsModule],
   templateUrl: './form.component.html',
 })
-export class FormComponent {
-  user: User;
+export class FormComponent implements OnInit {
+  @Input()
+  user: User = new User();
 
   @Output()
   newUserEventEmitter: EventEmitter<User> = new EventEmitter();
 
-  constructor() {
-    this.user = new User();
+  private id!: number;
+
+  constructor(private service: UserService, private routes: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.routes.params.subscribe((params) => {
+      this.id = +params['id'];
+      if (this.id) {
+        this.service.findById(this.id).subscribe((user) => {
+          this.user = user;
+        });
+      }
+    });
   }
 
   onSubmit(userForm: NgForm): void {

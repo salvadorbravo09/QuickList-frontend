@@ -3,12 +3,19 @@
 
   <div class="flex flex-1 px-5 pb-5 space-x-4">
     <div class="w-1/2">
-      <app-form (newUserEventEmitter)="addUser($event)"></app-form>
+      <app-form 
+      [user]="userSelected"
+      (newUserEventEmitter)="addUser($event)">
+    </app-form>
     </div>
 
     <div class="w-1/2 overflow-y-auto">
       <div class="rounded-lg shadow h-full">
-        <app-list [users]="users" (idUserEventEmitter)="removeUser($event)"></app-list>
+        <app-list 
+        [users]="users" 
+        (idUserEventEmitter)="removeUser($event)"
+        (selectedUserEventEmitter)="setSelectedUser($event)">
+      </app-list>
       </div>
     </div>
   </div>

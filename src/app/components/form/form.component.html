@@ -146,7 +146,7 @@
         type="submit"
         [disabled]="userForm.invalid"
       >
-        Crear
+        {{(user.id > 0) ? 'Actualizar' : 'Crear'}} 
       </button>
     </div>
   </div>
